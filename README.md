@@ -28,5 +28,5 @@ Among them, $Son$ is a sub state of $Fa$, and the $Value$ function evaluates the
 The specific code implementation is in the $place$\_$min$\_$max$_$dfs$ function of Gomoku-Hzy001.cpp, and I have encapsulated all the necessary content for implementing the minimax algorithm in this function.
 
 The following picture shows a game between me (white) and AI (black).
-![minimax_demo](src\png\minimax_demo.png)
+![minimax_demo](https://github.com/carboxylBase/Gomoku_Hzy001/blob/main/src/png/minimax_demo.png)
 To be honest, I didn't give it my all. In the game, I also noticed some issues with it, such as a weak desire to attack. But overall, it is much stronger than the first generation Gomoku AI I created.
