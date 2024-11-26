@@ -17,7 +17,15 @@ Board::Board(int N, int M) {
 void Board::print_in_console() {
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < m; j++) {
-            std::cout << mat[i][j] << " ";
+            if (mat[i][j] == -1) {
+                std::cout << "_ ";
+            }
+            else if (mat[i][j] == 0) {
+                std::cout << "B ";
+            }
+            else {
+                std::cout << "W ";
+            }
         }
         std::cout << std::endl;
     }

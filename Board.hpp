@@ -12,7 +12,6 @@ public:
 public:
     Board(int N = 0, int M = 0);
     void print_in_console();
-    virtual int place(DPoint pos, int color = 0);
     void backtrack();
 };
 
@@ -21,7 +20,7 @@ public:
     int sum_black = 0, sum_white = 0;
 public:
     GomokuBoard(int N = 15, int M = 15);// -1 nothing , 0 black , 1 white.
-    int place (DPoint pos, int color = 0) override; // -1 illegal, 0 game continue, 1 game end.
+    int place (DPoint pos, int color = 0); // -1 illegal, 0 game continue, 1 game end.
 };
 
 #endif

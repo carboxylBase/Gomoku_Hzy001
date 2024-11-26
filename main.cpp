@@ -18,7 +18,7 @@ int main() {
 			}
 		}
 		else { // black move.
-			pos = AI.place_test();
+			pos = AI.place_min_max_dfs().first;
 		}
 		int v = board.place(pos,round % 2);
 		std::cout << "Round " << round << std::endl;
