@@ -22,7 +22,9 @@ Please allow me to briefly describe the design concept and principles:
 As is well known, the core idea of the minimax algorithm is to maximize one's own score while minimizing the enemy's score. To achieve this in code, let's first think about how to describe this algorithm in mathematical language.
 
 If we consider a chessboard state as a node on a decision tree, then for the current state, what we need to do is to select the optimal point from its many child nodes.We will simply design the score transfer equation as follows:
+
 $Score(Fa) = max(Value(x,y)-Score(Son))$
+
 Among them, $Son$ is a sub state of $Fa$, and the $Value$ function evaluates the value at (x, y).
 
 The specific code implementation is in the $place$\_$min$\_$max$_$dfs$ function of Gomoku-Hzy001.cpp, and I have encapsulated all the necessary content for implementing the minimax algorithm in this function.
