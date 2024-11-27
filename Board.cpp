@@ -15,7 +15,13 @@ Board::Board(int N, int M) {
 }
 
 void Board::print_in_console() {
+    std::cout << "  ";
+    for (int i = 0; i < 15; i++) {
+        std::cout << (i % 10) << " ";
+    }
+    std::cout << std::endl;
     for (int i = 0; i < n; i++) {
+        std::cout << (i % 10) << " ";
         for (int j = 0; j < m; j++) {
             if (mat[i][j] == -1) {
                 std::cout << "_ ";
