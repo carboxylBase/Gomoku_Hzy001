@@ -30,6 +30,7 @@ DPoint V[8] = { {0,1}, {1,1},{1,-1},{1,0},{0,-1} ,{-1,-1},{-1,1},{-1,0} };
 int score[14] = {10,20,4000,5000,5,15,30,5,20,1,15,30};
 const int WIDTH = 4;
 const int DEPTH = 10;
+bool vis[8][14];
 
 std::pair<DPoint,int> Hzy001::place_min_max_dfs(int dep) {
 	int color;
@@ -41,11 +42,10 @@ std::pair<DPoint,int> Hzy001::place_min_max_dfs(int dep) {
 	}
 	// First hand in the middle.
 	if (board.sum_black == 0 && board.sum_white == 0) {
-		std::cout << "ok" << std::endl;
 		return { DPoint(7,7),0 };
 	}
 	std::vector < std::pair<DPoint,int> > q;
-	auto cal = [&](int x,int y) {
+	auto cal = [&](int x,int y,int c) {
 		#define LEGAL (u >= 0 && u < board.n && v >= 0 && v < board.m)
 		int sum = 0;
 		for (int i = 0; i < 8; i++) {
@@ -69,24 +69,42 @@ std::pair<DPoint,int> Hzy001::place_min_max_dfs(int dep) {
 						if (!LEGAL) {
 							if (cnt == 1) {
 								sum += score[9];
+								if (color == c) {
+									vis[i][9] = 1;
+								}
 							}
 							else if (cnt == 2) {
 								sum += score[10];
+								if (color == c) {
+									vis[i][10] = 1;
+								}
 							}
 							else if (cnt == 3) {
 								sum += score[11];
+								if (color == c) {
+									vis[i][11] = 1;
+								}
 							}
 							else {
 								sum += score[3];
+								if (color == c) {
+									vis[i][3] = 1;
+								}
 							}
 							break;
 						}
 						if (board.mat[u][v] == -1) {
 							if (cnt == 1) {
 								sum += score[7];
+								if (color == c) {
+									vis[i][7] = 1;
+								}
 							}
 							else {
 								sum += score[8];
+								if (color == c) {
+									vis[i][8] = 1;
+								}
 							}
 							break;
 						}
@@ -94,18 +112,30 @@ std::pair<DPoint,int> Hzy001::place_min_max_dfs(int dep) {
 							cnt++;
 							if (cnt == 3) {
 								sum += score[11];
+								if (color == c) {
+									vis[i][11] = 1;
+								}
 								break;
 							}
 						}
 						else {
 							if (cnt == 1) {
 								sum += score[9];
+								if (color == c) {
+									vis[i][9] = 1;
+								}
 							}
 							else if (cnt == 2) {
 								sum += score[10];
+								if (color == c) {
+									vis[i][10] = 1;
+								}
 							}
 							else if (cnt == 3) {
 								sum += score[11];
+								if (color == c) {
+									vis[i][11] = 1;
+								}
 							}
 							break;
 						}
@@ -119,30 +149,54 @@ std::pair<DPoint,int> Hzy001::place_min_max_dfs(int dep) {
 					if (!LEGAL) {
 						if (cnt == 1) {
 							sum += score[4];
+							if (color == c) {
+								vis[i][4] = 1;
+							}
 						}
 						else if (cnt == 2) {
 							sum += score[5];
+							if (color == c) {
+								vis[i][5] = 1;
+							}
 						}
 						else if (cnt == 3) {
 							sum += score[6];
+							if (color == c) {
+								vis[i][6] = 1;
+							}
 						}
 						else {
 							sum += score[3];
+							if (color == c) {
+								vis[i][3] = 1;
+							}
 						}
 						break;
 					}
 					if (board.mat[u][v] == -1) {
 						if (cnt == 1) {
 							sum += score[0];
+							if (color == c) {
+								vis[i][0] = 1;
+							}
 						}
 						else if (cnt == 2) {
 							sum += score[1];
+							if (color == c) {
+								vis[i][1] = 1;
+							}
 						}
 						else if (cnt == 3) {
 							sum += score[2];
+							if (color == c) {
+								vis[i][2] = 1;
+							}
 						}
 						else {
 							sum += score[3];
+							if (color == c) {
+								vis[i][3] = 1;
+							}
 						}
 						break;
 					}
@@ -150,26 +204,99 @@ std::pair<DPoint,int> Hzy001::place_min_max_dfs(int dep) {
 						cnt++;
 						if (cnt == 4) {
 							sum += score[3];
+							if (color == c) {
+								vis[i][3] = 1;
+							}
 							break;
 						}
 					}
 					else {
 						if (cnt == 1) {
 							sum += score[4];
+							if (color == c) {
+								vis[i][4] = 1;
+							}
 						}
 						else if (cnt == 2) {
 							sum += score[5];
+							if (color == c) {
+								vis[i][5] = 1;
+							}
 						}
 						else if (cnt == 3) {
 							sum += score[6];
+							if (color == c) {
+								vis[i][6] = 1;
+							}
 						}
 						else {
 							sum += score[3];
+							if (color == c) {
+								vis[i][3] = 1;
+							}
 						}
 						break;
 					}
 				}
 			}
+		}
+		// Connect five directly.
+		for (int i = 0; i < 4; i++) {
+			if (vis[i][0] && (vis[i + 4][2] || vis[i + 4][6])) {
+				sum += score[3];
+			}
+			else if (vis[i + 4][0] && (vis[i][2] || vis[i][6])) {
+				sum += score[3];
+			}
+			else if (vis[i][1] && (vis[i + 4][1] || vis[i + 4][2] || vis[i + 4][5] || vis[i + 4][6])) {
+				sum += score[3];
+			}
+			else if (vis[i + 4][1] && (vis[i][1] || vis[i][2] || vis[i][5] || vis[i][6])) {
+				sum += score[3];
+			}
+			else if (vis[i][2] && (vis[i + 4][2] || vis[i + 4][5] || vis[i + 4][6])) {
+				sum += score[3];
+			}
+			else if (vis[i + 4][2] && (vis[i][2] || vis[i][5] || vis[i][6])) {
+				sum += score[3];
+			}
+			else if (vis[i][5] && (vis[i + 4][5] || vis[i + 4][6])) {
+				sum += score[3];
+			}
+			else if (vis[i + 4][5] && (vis[i][5] || vis[i][6])) {
+				sum += score[3];
+			}
+			else if (vis[i][6] && vis[i + 4][6]) {
+				sum += score[3];
+			}
+		}
+		// Connect four directly.
+		for (int i = 0; i < 4; i++) {
+			if (vis[i][0] && vis[i + 4][1]) {
+				sum += score[3];
+			}
+			else if (vis[i + 4][0] && vis[i][1]) {
+				sum += score[3];
+			}
+		}
+		// 3-3,3-4,4-4.
+		int cnt_3 = 0, cnt_4 = 0;
+		for (int i = 0; i < 8; i++) {
+			if (vis[i][1]) {
+				cnt_3++;
+			}
+			if (vis[i][6]) {
+				cnt_4++;
+			}
+		}
+		if (cnt_4 > 1) {
+			sum += score[3];
+		}
+		else if (cnt_4 && cnt_3) {
+			sum += score[3];
+		}
+		else if (cnt_3 > 1) {
+			sum += score[3];
 		}
 		return sum;
 	};
@@ -181,7 +308,7 @@ std::pair<DPoint,int> Hzy001::place_min_max_dfs(int dep) {
 			if (board.mat[i][j] != -1) {
 				continue;
 			}
-			q.push_back({DPoint(i,j),cal(i,j)});
+			q.push_back({DPoint(i,j),cal(i,j,color)});
 		}
 	}
 	sort(q.begin(),q.end(),cmp);
@@ -201,7 +328,7 @@ std::pair<DPoint,int> Hzy001::place_min_max_dfs(int dep) {
 			int x = board.place(q[i].first,color);
 			if (x == 1) {
 				board.backtrack();
-				q[i].second = 50000;
+				q[i].second = 500000;
 				return q[i];
 			}
 			int score = place_min_max_dfs(dep+1).second;
