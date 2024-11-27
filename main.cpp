@@ -10,13 +10,16 @@ int main() {
 	while (game_run) {
 		DPoint pos;
 		if (round % 2 == 1) { // white move.
-			pos = AI.place_min_max_dfs().first;
-			/*while (1) {
+			// pos = AI.place_min_max_dfs().first;
+			while (1) {
 				std::cin >> pos.x >> pos.y;
+				if (pos.x < 0 || pos.x >= board.n || pos.y < 0 || pos.y >= board.m) {
+					continue;
+				}
 				if (board.mat[pos.x][pos.y] == -1) {
 					break;
 				}
-			}*/
+			}
 		}
 		else { // black move.
 			pos = AI.place_min_max_dfs().first;

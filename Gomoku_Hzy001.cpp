@@ -27,7 +27,7 @@ DPoint Hzy001::place_test() {
 	11 01112
 */
 DPoint V[8] = { {0,1}, {1,1},{1,-1},{1,0},{0,-1} ,{-1,-1},{-1,1},{-1,0} };
-int score[14] = {10,20,4000,5000,5,15,30,5,20,1,15,30};
+int score[14] = {10,20,4000,6000,5,15,30,5,20,1,15,30};
 const int WIDTH = 4;
 const int DEPTH = 10;
 bool vis[8][14];
@@ -46,6 +46,7 @@ std::pair<DPoint,int> Hzy001::place_min_max_dfs(int dep) {
 	}
 	std::vector < std::pair<DPoint,int> > q;
 	auto cal = [&](int x,int y,int c) {
+		memset(vis, 0, sizeof vis);
 		#define LEGAL (u >= 0 && u < board.n && v >= 0 && v < board.m)
 		int sum = 0;
 		for (int i = 0; i < 8; i++) {
